@@ -23,6 +23,7 @@
 #include "transform.h"
 #include "shader.h"
 #include "script.h"
+#include "MeshLoader.h"
 
 extern "C" {
 #include "lua.h"
@@ -110,6 +111,8 @@ int main()
   RenderSystem render;
   ScriptSystem script;
 
+  MeshLoader mesh_loader;
+
   //----------------------------------------------------------------
 
 
@@ -142,10 +145,7 @@ int main()
     .scale = glm::vec3(1.0f)
   });
 
-  registry.addComponent<Mesh>(mesh_entity, Mesh {
-    .vertices = vertices,
-    .indices = indices
-  });
+  registry.addComponent<Mesh>(mesh_entity, mesh_loader.importMesh("../resources/Monkey.glb"));
 
   registry.addComponent<Shader>(mesh_entity, Shader {
     .shaderObj = &object_shader

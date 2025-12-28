@@ -3,6 +3,7 @@
 function onStart()
   transform.sz = 10
   transform.sx = 10
+  transform.sy = 10
 end
 
 

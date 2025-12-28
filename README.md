@@ -63,6 +63,15 @@ The engine currently provides **six** core components:
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
+  ### Importing of mesh data
+
+  Meshes can be loaded from glTF 2.0 binary files (`.glb`).  
+  To import a mesh, create a `MeshLoader` instance and call:
+
+  ```cpp
+  mesh_loader.importMesh(path/to/model.glb)
+  ```
+
 - **Script**  
   Stores the file path to the associated Lua script.
 
@@ -71,3 +80,13 @@ The engine currently provides **six** core components:
 
 - **Shader**  
   Holds a reference to the shader object used for rendering the entity.
+
+---
+
+## Work in progress
+
+- gui implementation to create entities and components during runtime in the engine
+
+- implementation of scenes
+
+- a savefile to save scenes

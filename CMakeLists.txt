@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 Project(demo)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -16,6 +16,8 @@ set(SRC_FILES
 	src/utils.cpp
 	src/ShaderObject.cpp
 	src/LuaBindings.cpp
+	src/tinygltf_impl.cpp
+	src/MeshLoader.cpp
 	ecs/systems/CameraSystem.cpp
 	ecs/systems/InputSystem.cpp
 	ecs/systems/RenderSystem.cpp
@@ -43,6 +45,7 @@ add_library(lua STATIC ${LUA_SOURCES})
 
 file(GLOB HEADER_FILES
 	include/*.h
+	include/*.hpp
 	ecs/*.h
 	ecs/systems/*.h
 	ecs/components/*.h
