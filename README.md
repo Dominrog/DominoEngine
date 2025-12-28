@@ -69,7 +69,7 @@ The engine currently provides **six** core components:
   To import a mesh, create a `MeshLoader` instance and call:
 
   ```cpp
-  mesh_loader.importMesh(path/to/model.glb)
+  mesh_loader.importMesh("path/to/model.glb")
   ```
 
 - **Script**  
