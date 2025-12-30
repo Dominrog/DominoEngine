@@ -63,13 +63,13 @@ The engine currently provides **six** core components:
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
-  ### Importing of mesh data
+  ### Importing mesh data
 
   Meshes can be loaded from glTF 2.0 binary files (`.glb`).  
   To import a mesh, create a `MeshLoader` instance and call:
 
   ```cpp
-  mesh_loader.importMesh(path/to/model.glb)
+  mesh_loader.importMesh("path/to/model.glb")
   ```
 
 - **Script**  
