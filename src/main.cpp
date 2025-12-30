@@ -35,22 +35,6 @@ extern "C" {
 float delta_time = 0.0f;
 float last_frame = 0.0f;
 
-
-std::vector<Vertex> vertices = 
-{
-  {{-0.5f,  0.0f, -0.5f}, {0,0,1}, {0,0}},
-  {{ 0.5f,  0.0f, -0.5f}, {0,0,1}, {1,0}},
-  {{ 0.5f,  0.0f,  0.5f}, {0,0,1}, {1,1}},
-  {{-0.5f,  0.0f,  0.5f}, {0,0,1}, {0,1}}
-};
-
-std::vector<unsigned int> indices = 
-{
-  0,2,1,
-  0,3,2
-};
-
-
 Registry registry;
 
 
@@ -151,7 +135,6 @@ int main()
     .shaderObj = &object_shader
   });
 
-  
   registry.addComponent<Script>(mesh_entity, Script {
     .lua_file = "../ecs/scripts/test.lua"
   }); 

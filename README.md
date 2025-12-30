@@ -85,6 +85,8 @@ The engine currently provides **six** core components:
 
 ## Work in progress
 
+- new input system not only tied to the camera component
+
 - gui implementation to create entities and components during runtime in the engine
 
 - implementation of scenes
