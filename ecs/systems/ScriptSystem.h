@@ -14,6 +14,7 @@ extern "C" {
 
 struct ScriptSystem 
 {
+	void setRegistry(Registry* registry);
 	void start(Registry& registry);
 	void update(Registry& registry, float dt);
 };

@@ -1,9 +1,9 @@
 
 
 function onStart()
-  transform.sz = 10
-  transform.sx = 10
-  transform.sy = 10
+  transform.sz = 1
+  transform.sx = 1
+  transform.sy = 1
 end
 
 

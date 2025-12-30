@@ -1,5 +1,12 @@
 #include "LuaBindings.h"
 
+static Registry* gRegistry = nullptr;
+
+void lua_setRegistry(Registry* registry)
+{
+  gRegistry = registry;
+}
+
 extern "C" int transform_index(lua_State* L) {
   Transform* tr = (Transform*)lua_touserdata(L, lua_upvalueindex(1));
   const char* key = lua_tostring(L, 2);
@@ -39,7 +46,7 @@ extern "C" int transform_newindex(lua_State* L) {
 extern "C" int l_getTransform(lua_State* L) {
   Entity e = (Entity)lua_tointeger(L, 1);
 
-  Transform* tr = &registry.get<Transform>(e);
+  Transform* tr = &gRegistry->get<Transform>(e);
   
   lua_newtable(L);
 

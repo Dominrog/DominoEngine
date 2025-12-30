@@ -12,6 +12,7 @@ set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/extern/imgui)
 
 set(SRC_FILES
 	src/main.cpp
+	src/engine.cpp
 	src/glad.c
 	src/utils.cpp
 	src/ShaderObject.cpp

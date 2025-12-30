@@ -1,5 +1,9 @@
 #include "ScriptSystem.h"
 
+void ScriptSystem::setRegistry(Registry* registry)
+{
+    lua_setRegistry(registry);
+}
 
 void ScriptSystem::start(Registry& registry)
 {
