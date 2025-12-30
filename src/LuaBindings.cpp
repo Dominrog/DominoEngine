@@ -46,6 +46,9 @@ extern "C" int transform_newindex(lua_State* L) {
 extern "C" int l_getTransform(lua_State* L) {
   Entity e = (Entity)lua_tointeger(L, 1);
 
+  if (!gRegistry)
+    return luaL_error(L, "Registry not set");
+  
   Transform* tr = &gRegistry->get<Transform>(e);
   
   lua_newtable(L);

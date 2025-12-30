@@ -44,18 +44,17 @@ void Engine::init()
   glCullFace(GL_BACK);  
   glfwSwapInterval(0);
 
+}
 
-  //----------------------START------------------------
+void Engine::run()
+{
+	//----------------------START------------------------
 
   script.setRegistry(&registry);
   script.start(registry);
 
   //----------------------------------------------------
-
-}
-
-void Engine::run()
-{
+  
 	while(!glfwWindowShouldClose(window))
   {
     float current_frame = static_cast<float>(glfwGetTime());
@@ -78,9 +77,9 @@ void Engine::run()
 
     input.update(registry, delta_time, window);
     camera.update(registry);
-    script.update(registry, delta_time);
     transform.update(registry);
     render.update(registry, camera_entity);
+    script.update(registry, delta_time);
 
     //----------------------------------------------------
 
