@@ -1,14 +1,12 @@
 #include "utils.h"
 
-bool first_mouse = true;
-
 int global_fps = 0;
 
-float last_x = SCR_WIDTH / 2.0f;
-float last_y = SCR_HEIGHT / 2.0f;
+static InputState* gInput = nullptr;
 
-RawInput gInput;
-
+void setInputState(InputState* input) {
+  gInput = input;
+}
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -17,26 +15,28 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
+
   float xpos = static_cast<float>(xposIn);
   float ypos = static_cast<float>(yposIn);
 
-  if (first_mouse)
+  if (gInput->first_mouse)
   {
-    last_x = xpos;
-    last_y = ypos;
-    first_mouse = false;
+    gInput->mouse_x = xpos;
+    gInput->mouse_y = ypos;
+    gInput->first_mouse = false;
+    return;
   }
 
-  gInput.xoffset = xpos - last_x;
-  gInput.yoffset = last_y - ypos;
+  gInput->mouse_dx = xpos - gInput->mouse_x;
+  gInput->mouse_dy = gInput->mouse_y - ypos;
 
-  last_x = xpos;
-  last_y = ypos;
+  gInput->mouse_x = xpos;
+  gInput->mouse_y = ypos;
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-  gInput.scroll_offset = static_cast<float>(yoffset);
+  gInput->scroll += static_cast<float>(yoffset);
 }
 
 void countFps()

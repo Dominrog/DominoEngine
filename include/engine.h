@@ -16,6 +16,7 @@
 #include "ShaderObject.h"
 #include "CameraSystem.h"
 #include "InputSystem.h"
+#include "InputState.h"
 #include "TransformSystem.h"
 #include "RenderSystem.h"
 #include "ScriptSystem.h"
@@ -41,6 +42,7 @@ struct Engine {
 
 	Registry registry;
 	InputSystem input;
+	InputState input_state;
   CameraSystem camera;
   TransformSystem transform;
   RenderSystem render;

@@ -8,6 +8,5 @@ end
 
 
 function onUpdate(dt)
-  transform.z = transform.z - 0.5 * dt
   transform.rz = transform.rz - 60 * dt
 end

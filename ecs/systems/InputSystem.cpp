@@ -1,7 +1,8 @@
 #include "InputSystem.h"
 
-void InputSystem::update(Registry& registry, float dt, GLFWwindow* window)
+void InputSystem::update(InputState& input, Registry& registry, float dt, GLFWwindow* window)
 {
+	/*
 	for (auto e : registry.view<Camera, Transform>())
   {
     auto& cam = registry.get<Camera>(e);
@@ -35,4 +36,16 @@ void InputSystem::update(Registry& registry, float dt, GLFWwindow* window)
   gInput.xoffset = 0;
   gInput.yoffset = 0;
   gInput.scroll_offset = 0;
+  */
+
+	for (int key = 0; key < GLFW_KEY_LAST; ++key)
+  {
+  	input.keys[key] = glfwGetKey(window, key) == GLFW_PRESS;
+  }
+
+  /*
+  input.mouse_dx = 0.0f;
+  input.mouse_dy = 0.0f;
+  input.scroll = 0.0f;
+  */
 }

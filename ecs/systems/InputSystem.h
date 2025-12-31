@@ -2,6 +2,7 @@
 
 #include "registry.h"
 #include "utils.h"
+#include "InputState.h"
 
 struct RawInput 
 {
@@ -13,5 +14,5 @@ struct RawInput
 
 struct InputSystem 
 {
-	void update(Registry& registry, float dt, GLFWwindow* window);
+	void update(InputState& input, Registry& registry, float dt, GLFWwindow* window);
 };

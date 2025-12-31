@@ -17,6 +17,9 @@ void Engine::init()
   }
 
   glfwMakeContextCurrent(window);
+  glfwSetWindowUserPointer(window, &input_state);
+  setInputState(&input_state);
+
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
   glfwSetCursorPosCallback(window, mouse_callback);
   glfwSetScrollCallback(window, scroll_callback);
@@ -51,6 +54,7 @@ void Engine::run()
 	//----------------------START------------------------
 
   script.setRegistry(&registry);
+  script.setInputState(&input_state);
   script.start(registry);
 
   //----------------------------------------------------
@@ -75,14 +79,19 @@ void Engine::run()
 
     //----------------------UPDATE------------------------
 
-    input.update(registry, delta_time, window);
+    input.update(input_state, registry, delta_time, window);
     camera.update(registry);
     transform.update(registry);
     render.update(registry, camera_entity);
     script.update(registry, delta_time);
 
-    //----------------------------------------------------
+    //----------------------RESET-MOUSE-------------------
 
+    input_state.mouse_dx = 0.0f;
+    input_state.mouse_dy = 0.0f;
+    input_state.scroll = 0.0f;
+
+    //----------------------------------------------------
     
     ImGui::SetNextWindowSize(ImVec2(350, 250), ImGuiCond_Once);
     ImGui::Begin("Engine Info");

@@ -85,10 +85,14 @@ The engine currently provides **six** core components:
 
 ## Work in progress
 
-- new input system not only tied to the camera component
+### high priority
 
-- gui implementation to create entities and components during runtime in the engine
+- replace `keyFromString()` in `LuaBindings.h` with an unordered KeyMap
+
+### low priority
 
 - implementation of scenes
 
 - a savefile to save scenes
+
+- gui implementation to create entities and components during runtime in the engine

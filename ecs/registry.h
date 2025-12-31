@@ -48,4 +48,14 @@ public:
 
 		return result;
 	}
+
+	// checks if an entity has a specific component
+	template<typename T>
+	bool has(Entity e)
+	{
+    auto it = components.find(std::type_index(typeid(T)));
+    if (it == components.end()) return false;
+    return it->second.count(e) > 0;
+	}
+
 };

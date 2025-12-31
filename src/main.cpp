@@ -8,12 +8,14 @@ int main()
   domino_engine.init();
 
 
+  //----------------------------------------------------------------------------------------------
+
   ShaderObject object_shader("../shaders/objectShader.vs", "../shaders/objectShader.fs");
 
   domino_engine.camera_entity = domino_engine.registry.createEntity();
 
   domino_engine.registry.addComponent<Transform>(domino_engine.camera_entity, Transform {
-    .position = glm::vec3(0.0f, 3.0f, 0.0f),
+    .position = glm::vec3(0.0f, 0.0f, 3.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
     .scale = glm::vec3(1.0f)
   });
@@ -29,6 +31,10 @@ int main()
     .mouse_sensitivity = 0.1f,
     .zoom = 45.0f
   });
+
+  domino_engine.registry.addComponent<Script>(domino_engine.camera_entity, Script {
+    .lua_file = "../ecs/scripts/CameraController.lua"
+  }); 
 
 
   Entity mesh_entity = domino_engine.registry.createEntity();
@@ -49,6 +55,7 @@ int main()
     .lua_file = "../ecs/scripts/test.lua"
   }); 
 
+  //----------------------------------------------------------------------------------------------
 
 
   domino_engine.run();
