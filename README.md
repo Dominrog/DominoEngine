@@ -24,6 +24,12 @@ Scripts provide the following callback methods:
   (`dt` is the delta time, i.e. the time elapsed since the previous frame)
 
 Through scripts, component data of the owning entity can be read and modified.
+Additionally, by using **EntityLink** components, you can access the components of other entities.  
+For example, you can get the transform of a linked entity using:
+
+```lua
+local targetTransform = getTransform(link.target)
+```
 
 ---
 
@@ -35,8 +41,7 @@ The engine currently provides **five** core systems:
   Updates all `Camera` components and computes the corresponding view and projection matrices.
 
 - **InputSystem**  
-  Processes input for entities that have both `Camera` and `Transform` components.  
-  This design effectively restricts input handling to a single active camera.
+  Captures all user input (keyboard, mouse, scroll) and updates the `InputState` accordingly. Ensures that current states—such as pressed keys, mouse movement (`dx`, `dy`), and scroll values—are available for scripts or other systems.
 
 - **RenderSystem**  
   Responsible for uploading, updating, and rendering GPU data associated with `Mesh` components.
@@ -51,7 +56,7 @@ The engine currently provides **five** core systems:
 
 ## Components
 
-The engine currently provides **six** core components:
+The engine currently provides **seven** core components:
 
 - **Info**  
   Stores metadata associated with an entity.  
@@ -75,6 +80,10 @@ The engine currently provides **six** core components:
 - **Script**  
   Stores the file path to the associated Lua script.
 
+- **EntityLink**  
+  Stores a reference to another entity using its entity ID.  
+  This allows one entity to safely access and interact with the components of another entity.
+
 - **Camera**  
   Contains all data required to define the camera’s position and orientation in world space.
 
@@ -91,7 +100,7 @@ The engine currently provides **six** core components:
 
 ### low priority
 
-- implementation of scenes
+- implementation of scenes in safefiles
 
 - a savefile to save scenes
 

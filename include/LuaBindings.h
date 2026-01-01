@@ -13,6 +13,7 @@ extern "C" {
 #include "transform.h"
 #include "camera.h"
 #include "InputState.h"
+#include "entitylink.h"
 
 void lua_setRegistry(Registry* registry);
 void lua_setInput(InputState* input);
@@ -28,3 +29,7 @@ extern "C" int l_getTransform(lua_State* L);
 extern "C" int camera_index(lua_State* L);
 extern "C" int camera_newindex(lua_State* L);
 extern "C" int l_getCamera(lua_State* L);
+
+extern "C" int entitylink_index(lua_State* L);
+extern "C" int entitylink_newindex(lua_State* L);
+extern "C" int l_getEntityLink(lua_State* L);

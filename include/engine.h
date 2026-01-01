@@ -28,6 +28,7 @@
 #include "shader.h"
 #include "script.h"
 #include "MeshLoader.h"
+#include "entitylink.h"
 
 extern "C" {
 #include "lua.h"

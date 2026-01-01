@@ -99,9 +99,7 @@ extern "C" int l_getTransform(lua_State* L)
     return luaL_error(L, "Registry not set");
   
   if (!gRegistry->has<Transform>(e))
-  {
-    std::cout << "No Transform component found" << std::endl;
-  }
+    return 0;
 
   Transform* tr = &gRegistry->get<Transform>(e);
   
@@ -192,6 +190,60 @@ extern "C" int l_getCamera(lua_State* L)
   // __newindex
   lua_pushlightuserdata(L, cam);
   lua_pushcclosure(L, camera_newindex, 1);
+  lua_setfield(L, -2, "__newindex");
+
+  lua_setmetatable(L, -2);
+
+  return 1;
+}
+
+extern "C" int entitylink_index(lua_State* L)
+{
+  EntityLink* link = (EntityLink*)lua_touserdata(L, lua_upvalueindex(1));
+  const char* key = lua_tostring(L, 2);
+
+  if (strcmp(key, "target") == 0) lua_pushnumber(L, link->target);
+  else lua_pushnil(L);
+
+  return 1;
+}
+
+extern "C" int entitylink_newindex(lua_State* L)
+{
+  EntityLink* link = (EntityLink*)lua_touserdata(L, lua_upvalueindex(1));
+  const char* key = lua_tostring(L, 2);
+  float value = (float)lua_tonumber(L, 3);
+
+  if (strcmp(key, "target") == 0) link->target = value;
+
+  return 0;
+}
+
+extern "C" int l_getEntityLink(lua_State* L)
+{
+  Entity e = (Entity)lua_tointeger(L, 1);
+
+  if (!gRegistry)
+    return luaL_error(L, "Registry not set");
+
+  if (!gRegistry->has<EntityLink>(e)) 
+    return 0;
+  
+  EntityLink* link = &gRegistry->get<EntityLink>(e);
+  
+  lua_newtable(L);
+
+  // Metatable 
+  lua_newtable(L);
+
+  // __index
+  lua_pushlightuserdata(L, link);
+  lua_pushcclosure(L, entitylink_index, 1);
+  lua_setfield(L, -2, "__index");
+
+  // __newindex
+  lua_pushlightuserdata(L, link);
+  lua_pushcclosure(L, entitylink_newindex, 1);
   lua_setfield(L, -2, "__newindex");
 
   lua_setmetatable(L, -2);

@@ -30,6 +30,13 @@ void ScriptSystem::start(Registry& registry)
     lua_call(sc.lua_state, 1, 1);
     lua_setglobal(sc.lua_state, "transform"); 
 
+    lua_register(sc.lua_state, "getEntityLink", l_getEntityLink);
+
+    lua_getglobal(sc.lua_state, "getEntityLink");
+    lua_pushinteger(sc.lua_state, (int)e);
+    lua_call(sc.lua_state, 1, 1);
+    lua_setglobal(sc.lua_state, "link");
+
     lua_register(sc.lua_state, "getCamera", l_getCamera);
 
     lua_getglobal(sc.lua_state, "getCamera");
