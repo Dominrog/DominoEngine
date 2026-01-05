@@ -12,8 +12,7 @@ extern "C" {
 #include "lualib.h"
 }
 
-struct ScriptSystem 
-{
+struct ScriptSystem {
 	void setRegistry(Registry* registry);
 	void setInputState(InputState* input);
 	void start(Registry& registry);

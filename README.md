@@ -35,7 +35,7 @@ local targetTransform = getTransform(link.target)
 
 ## Systems
 
-The engine currently provides **five** core systems:
+The engine currently provides **six** core systems:
 
 - **CameraSystem**  
   Updates all `Camera` components and computes the corresponding view and projection matrices.
@@ -52,11 +52,14 @@ The engine currently provides **five** core systems:
 - **TransformSystem**  
   Updates all `Transform` components and propagates spatial changes to dependent systems.
 
+- **CollisionSystem**  
+  Processes all box colliders in the scene and detects collisions between them.
+
 ---
 
 ## Components
 
-The engine currently provides **seven** core components:
+The engine currently provides **eight** core components:
 
 - **Info**  
   Stores metadata associated with an entity.  
@@ -68,14 +71,8 @@ The engine currently provides **seven** core components:
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
-  ### Importing mesh data
-
-  Meshes can be loaded from glTF 2.0 binary files (`.glb`).  
-  To import a mesh, create a `MeshLoader` instance and call:
-
-  ```cpp
-  mesh_loader.importMesh("path/to/model.glb")
-  ```
+- **BoxCollider**
+  Stores data for a box-shaped collider, including its full size, local offset, collision layer and mask, and whether the collider acts as a trigger.
 
 - **Script**  
   Stores the file path to the associated Lua script.
@@ -92,6 +89,17 @@ The engine currently provides **seven** core components:
 
 ---
 
+## Importing mesh data
+
+Meshes can be loaded from glTF 2.0 binary files (`.glb`).  
+To import a mesh, create a `MeshLoader` instance and call:
+
+```cpp
+mesh_loader.importMesh("path/to/model.glb")
+```
+
+---
+
 ## Work in progress
 
 ### high priority
@@ -100,7 +108,9 @@ The engine currently provides **seven** core components:
 
 ### low priority
 
-- implementation of scenes in safefiles
+- complete the `CollisionSystem`
+
+- allow the `EntityLink` to link more than one entity
 
 - a savefile to save scenes
 

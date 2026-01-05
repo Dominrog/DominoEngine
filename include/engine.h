@@ -29,6 +29,8 @@
 #include "script.h"
 #include "MeshLoader.h"
 #include "entitylink.h"
+#include "CollisionSystem.h"
+#include "boxcollider.h"
 
 extern "C" {
 #include "lua.h"
@@ -48,6 +50,7 @@ struct Engine {
   TransformSystem transform;
   RenderSystem render;
   ScriptSystem script;
+  CollisionSystem collision;
   MeshLoader mesh_loader;
 
   GLFWwindow* window;

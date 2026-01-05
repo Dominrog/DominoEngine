@@ -23,6 +23,8 @@ static int keyFromString(const char* key)
   return -1;
 }
 
+
+
 extern "C" int l_input_isDown(lua_State* L)
 {
   if (!gInput)
@@ -51,6 +53,7 @@ extern "C" int l_input_mouseDY(lua_State* L)
   lua_pushnumber(L, gInput ? gInput->mouse_dy : 0.0f);
   return 1;
 }
+
 
 
 extern "C" int transform_index(lua_State* L) 
@@ -122,6 +125,8 @@ extern "C" int l_getTransform(lua_State* L)
 
   return 1;
 }
+
+
 
 extern "C" int camera_index(lua_State* L)
 {
@@ -197,6 +202,8 @@ extern "C" int l_getCamera(lua_State* L)
   return 1;
 }
 
+
+
 extern "C" int entitylink_index(lua_State* L)
 {
   EntityLink* link = (EntityLink*)lua_touserdata(L, lua_upvalueindex(1));
@@ -244,6 +251,78 @@ extern "C" int l_getEntityLink(lua_State* L)
   // __newindex
   lua_pushlightuserdata(L, link);
   lua_pushcclosure(L, entitylink_newindex, 1);
+  lua_setfield(L, -2, "__newindex");
+
+  lua_setmetatable(L, -2);
+
+  return 1;
+}
+
+
+
+extern "C" int boxcollider_index(lua_State* L)
+{
+  BoxCollider* box = (BoxCollider*)lua_touserdata(L, lua_upvalueindex(1));
+  const char* key = lua_tostring(L, 2);
+
+  if (strcmp(key, "sx") == 0) lua_pushnumber(L, box->scale.x);
+  else if (strcmp(key, "sy") == 0) lua_pushnumber(L, box->scale.y);
+  else if (strcmp(key, "sz") == 0) lua_pushnumber(L, box->scale.z);
+  else if (strcmp(key, "offset_x") == 0) lua_pushnumber(L, box->offset.x);
+  else if (strcmp(key, "offset_y") == 0) lua_pushnumber(L, box->offset.y);
+  else if (strcmp(key, "offset_z") == 0) lua_pushnumber(L, box->offset.z);
+  else if (strcmp(key, "layer") == 0) lua_pushnumber(L, box->layer);
+  else if (strcmp(key, "mask") == 0) lua_pushnumber(L, box->mask);
+  else if (strcmp(key, "trigger") == 0) lua_pushnumber(L, box->trigger);
+  else lua_pushnil(L);
+
+  return 1;
+}
+
+extern "C" int boxcollider_newindex(lua_State* L)
+{
+  BoxCollider* box = (BoxCollider*)lua_touserdata(L, lua_upvalueindex(1));
+  const char* key = lua_tostring(L, 2);
+  float value = (float)lua_tonumber(L, 3);
+
+  if (strcmp(key, "sx") == 0) box->scale.x = value;
+  else if (strcmp(key, "sy") == 0) box->scale.y = value;
+  else if (strcmp(key, "sz") == 0) box->scale.z = value;
+  else if (strcmp(key, "offset_x") == 0) box->offset.x = value;
+  else if (strcmp(key, "offset_y") == 0) box->offset.y = value;
+  else if (strcmp(key, "offset_z") == 0) box->offset.z = value;
+  else if (strcmp(key, "layer") == 0) box->layer = value;
+  else if (strcmp(key, "mask") == 0) box->mask = value;
+  else if (strcmp(key, "trigger") == 0) box->trigger = value;
+
+  return 0;
+}
+
+extern "C" int l_getBoxCollider(lua_State* L)
+{
+  Entity e = (Entity)lua_tointeger(L, 1);
+
+  if (!gRegistry)
+    return luaL_error(L, "Registry not set");
+
+  if (!gRegistry->has<BoxCollider>(e)) 
+    return 0;
+  
+  BoxCollider* link = &gRegistry->get<BoxCollider>(e);
+  
+  lua_newtable(L);
+
+  // Metatable 
+  lua_newtable(L);
+
+  // __index
+  lua_pushlightuserdata(L, link);
+  lua_pushcclosure(L, boxcollider_index, 1);
+  lua_setfield(L, -2, "__index");
+
+  // __newindex
+  lua_pushlightuserdata(L, link);
+  lua_pushcclosure(L, boxcollider_newindex, 1);
   lua_setfield(L, -2, "__newindex");
 
   lua_setmetatable(L, -2);

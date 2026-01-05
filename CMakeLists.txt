@@ -24,6 +24,7 @@ set(SRC_FILES
 	ecs/systems/RenderSystem.cpp
 	ecs/systems/TransformSystem.cpp
 	ecs/systems/ScriptSystem.cpp
+	ecs/systems/CollisionSystem.cpp
 	${IMGUI_DIR}/imgui.cpp
   ${IMGUI_DIR}/imgui_draw.cpp
   ${IMGUI_DIR}/imgui_widgets.cpp

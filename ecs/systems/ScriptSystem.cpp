@@ -37,6 +37,13 @@ void ScriptSystem::start(Registry& registry)
     lua_call(sc.lua_state, 1, 1);
     lua_setglobal(sc.lua_state, "link");
 
+    lua_register(sc.lua_state, "getBoxCollider", l_getEntityLink);
+
+    lua_getglobal(sc.lua_state, "getBoxCollider");
+    lua_pushinteger(sc.lua_state, (int)e);
+    lua_call(sc.lua_state, 1, 1);
+    lua_setglobal(sc.lua_state, "box");
+
     lua_register(sc.lua_state, "getCamera", l_getCamera);
 
     lua_getglobal(sc.lua_state, "getCamera");
@@ -53,7 +60,7 @@ void ScriptSystem::start(Registry& registry)
 
     lua_pushcfunction(sc.lua_state, l_input_mouseDY);
     lua_setfield(sc.lua_state, -2, "mouseDY");
-    lua_setglobal(sc.lua_state, "Input");
+    lua_setglobal(sc.lua_state, "input");
 
     if (luaL_dofile(sc.lua_state, sc.lua_file.c_str()) != LUA_OK) {
       printf("Lua load error (%s): %s\n", sc.lua_file.c_str(), lua_tostring(sc.lua_state, -1));

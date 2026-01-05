@@ -13,6 +13,7 @@ int main()
   ShaderObject object_shader("../shaders/objectShader.vs", "../shaders/objectShader.fs");
 
 
+
   Entity mesh_entity = domino_engine.registry.createEntity();
 
   domino_engine.registry.addComponent<Transform>(mesh_entity, Transform {
@@ -60,6 +61,7 @@ int main()
   domino_engine.registry.addComponent<EntityLink>(domino_engine.camera_entity, EntityLink {
     .target = mesh_entity
   }); 
+
 
 
   Entity plane = domino_engine.registry.createEntity();

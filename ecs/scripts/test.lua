@@ -25,8 +25,8 @@ end
 
 
 function onUpdate(dt)
-  local dx = Input.mouseDX()
-  local dy = Input.mouseDY()
+  local dx = input.mouseDX()
+  local dy = input.mouseDY()
   local velocity = 5
 
   -- rotate object
@@ -36,25 +36,25 @@ function onUpdate(dt)
   local fx, fy, fz = getForward()
   local rx, ry, rz = getRight()
 
-  if Input.isDown("W") then
+  if input.isDown("W") then
     transform.x = transform.x + fx * velocity * dt
     transform.y = transform.y - fy * velocity * dt
     transform.z = transform.z + fz * velocity * dt
   end
 
-  if Input.isDown("S") then
+  if input.isDown("S") then
     transform.x = transform.x - fx * velocity * dt
     transform.y = transform.y + fy * velocity * dt
     transform.z = transform.z - fz * velocity * dt
   end
 
-  if Input.isDown("A") then
+  if input.isDown("A") then
     transform.x = transform.x + rx * velocity * dt
     transform.y = transform.y + ry * velocity * dt
     transform.z = transform.z + rz * velocity * dt
   end
 
-  if Input.isDown("D") then
+  if input.isDown("D") then
     transform.x = transform.x - rx * velocity * dt
     transform.y = transform.y - ry * velocity * dt
     transform.z = transform.z - rz * velocity * dt
