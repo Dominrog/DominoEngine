@@ -22,7 +22,7 @@ int main()
     .scale = glm::vec3(1.0f)
   });
 
-  domino_engine.registry.addComponent<Mesh>(mesh_entity, domino_engine.mesh_loader.importMesh("../resources/Monkey.glb"));
+  domino_engine.registry.addComponent<Mesh>(mesh_entity, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
 
   domino_engine.registry.addComponent<Shader>(mesh_entity, Shader {
     .shaderObj = &object_shader
@@ -32,12 +32,14 @@ int main()
     .lua_file = "../ecs/scripts/test.lua"
   }); 
 
+  domino_engine.registry.addComponent<BoxCollider>(mesh_entity, BoxCollider{});
+
 
 
   domino_engine.camera_entity = domino_engine.registry.createEntity();
 
   domino_engine.registry.addComponent<Transform>(domino_engine.camera_entity, Transform {
-    .position = glm::vec3(0.0f, 1.0f, 3.0f),
+    .position = glm::vec3(0.0f, 1.0f, 10.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
     .scale = glm::vec3(1.0f)
   });
@@ -54,9 +56,11 @@ int main()
     .zoom = 45.0f
   });
 
+  /*
   domino_engine.registry.addComponent<Script>(domino_engine.camera_entity, Script {
     .lua_file = "../ecs/scripts/CameraController.lua"
-  }); 
+  });
+  */ 
 
   domino_engine.registry.addComponent<EntityLink>(domino_engine.camera_entity, EntityLink {
     .target = mesh_entity
@@ -69,14 +73,16 @@ int main()
   domino_engine.registry.addComponent<Transform>(plane, Transform {
     .position = glm::vec3(0.0f, -3.0f, 0.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
-    .scale = glm::vec3(10.0f)
+    .scale = glm::vec3(1.0f, 1.0f, 3.0f)
   });
 
-  domino_engine.registry.addComponent<Mesh>(plane, domino_engine.mesh_loader.importMesh("../resources/Plane.glb"));
+  domino_engine.registry.addComponent<Mesh>(plane, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
 
   domino_engine.registry.addComponent<Shader>(plane, Shader {
     .shaderObj = &object_shader
   });
+
+  domino_engine.registry.addComponent<BoxCollider>(plane, BoxCollider{});
 
   //----------------------------------------------------------------------------------------------
 

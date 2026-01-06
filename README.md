@@ -112,6 +112,8 @@ mesh_loader.importMesh("path/to/model.glb")
 
 - allow the `EntityLink` to link more than one entity
 
+- add material component allowing to add a color and a texture to the mesh
+
 - a savefile to save scenes
 
 - gui implementation to create entities and components during runtime in the engine
