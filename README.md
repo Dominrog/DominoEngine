@@ -31,6 +31,18 @@ For example, you can get the transform of a linked entity using:
 local targetTransform = getTransform(link.target)
 ```
 
+Scripts have access to the InputSystem via lua bindings. The mouse position is available through 
+`mouseDX()` and `mouseDY()`. Key bindings are available with the `isDown(...)` method.
+For example:
+
+```lua
+local dx = input.mouseDX()
+
+if input.isDown("W") then
+  ...
+end
+```
+
 ---
 
 ## Systems
@@ -66,14 +78,14 @@ The engine currently provides **eight** core components:
   Currently limited to a name.
 
 - **Transform**  
-  Contains the spatial data of an entity, including position, rotation, and scale.
+  Contains the spatial data of an entity, including position, rotation, and scale.  
   Available in the script as `transform`.
 
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
 - **BoxCollider**   
-  Stores data for a box-shaped collider, including its full size, local offset, collision layer and mask, and whether the collider acts as a trigger.
+  Stores data for a box-shaped collider, including its full size, local offset, collision layer and mask, and whether the collider acts as a trigger.   
   Available in the script as `box`.
 
 - **Script**  
@@ -81,11 +93,11 @@ The engine currently provides **eight** core components:
 
 - **EntityLink**  
   Stores a reference to another entity using its entity ID.  
-  This allows one entity to safely access and interact with the components of another entity.
+  This allows one entity to safely access and interact with the components of another entity.   
   Available in the script as `link`.
 
 - **Camera**  
-  Contains all data required to define the camera’s position and orientation in world space.
+  Contains all data required to define the camera’s position and orientation in world space.    
   Available in the script as `camera`.
 
 - **Shader**  
@@ -96,7 +108,7 @@ The engine currently provides **eight** core components:
 ## Importing mesh data
 
 Meshes can be loaded from glTF 2.0 binary files (`.glb`).  
-To import a mesh, create a `MeshLoader` instance and call:
+To import a mesh, create a `MeshLoader` instance (usually already provided by the engine itself) and call:
 
 ```cpp
 mesh_loader.importMesh("path/to/model.glb")
