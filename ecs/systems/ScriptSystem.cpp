@@ -37,7 +37,7 @@ void ScriptSystem::start(Registry& registry)
     lua_call(sc.lua_state, 1, 1);
     lua_setglobal(sc.lua_state, "link");
 
-    lua_register(sc.lua_state, "getBoxCollider", l_getEntityLink);
+    lua_register(sc.lua_state, "getBoxCollider", l_getBoxCollider);
 
     lua_getglobal(sc.lua_state, "getBoxCollider");
     lua_pushinteger(sc.lua_state, (int)e);

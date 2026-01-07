@@ -273,7 +273,8 @@ extern "C" int boxcollider_index(lua_State* L)
   else if (strcmp(key, "offset_z") == 0) lua_pushnumber(L, box->offset.z);
   else if (strcmp(key, "layer") == 0) lua_pushnumber(L, box->layer);
   else if (strcmp(key, "mask") == 0) lua_pushnumber(L, box->mask);
-  else if (strcmp(key, "trigger") == 0) lua_pushnumber(L, box->trigger);
+  else if (strcmp(key, "trigger") == 0) lua_pushboolean(L, box->trigger);
+  else if (strcmp(key, "colliding") == 0) lua_pushboolean(L, box->colliding);
   else lua_pushnil(L);
 
   return 1;

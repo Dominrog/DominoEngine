@@ -4,6 +4,9 @@ void CollisionSystem::update(Registry& registry)
 {
   auto view = registry.view<Transform, BoxCollider>();
 
+  for (auto e : view)
+    registry.get<BoxCollider>(e).colliding = false;
+
   for (auto itA = view.begin(); itA != view.end(); ++itA)
   {
     auto itB = itA;
@@ -26,11 +29,8 @@ void CollisionSystem::update(Registry& registry)
 
       if (aabbOverlap(ta, ca, tb, cb))
       {
-        std::cout << "Collision detected" << std::endl;
-      }
-      else 
-      {
-      	std::cout << "No collision detected" << std::endl;
+        ca.colliding = true;
+        cb.colliding = true;
       }
     }
   }

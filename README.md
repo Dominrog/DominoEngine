@@ -71,7 +71,7 @@ The engine currently provides **eight** core components:
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
-- **BoxCollider**
+- **BoxCollider**   
   Stores data for a box-shaped collider, including its full size, local offset, collision layer and mask, and whether the collider acts as a trigger.
 
 - **Script**  
@@ -108,8 +108,6 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ### low priority
 
-- complete the `CollisionSystem`
-
 - allow the `EntityLink` to link more than one entity
 
 - add material component allowing to add a color and a texture to the mesh
@@ -117,3 +115,5 @@ mesh_loader.importMesh("path/to/model.glb")
 - a savefile to save scenes
 
 - gui implementation to create entities and components during runtime in the engine
+
+- improve the `CollisionSystem` by implementing a spatial hash grid
