@@ -67,12 +67,14 @@ The engine currently provides **eight** core components:
 
 - **Transform**  
   Contains the spatial data of an entity, including position, rotation, and scale.
+  Available in the script as `transform`.
 
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
 - **BoxCollider**   
   Stores data for a box-shaped collider, including its full size, local offset, collision layer and mask, and whether the collider acts as a trigger.
+  Available in the script as `box`.
 
 - **Script**  
   Stores the file path to the associated Lua script.
@@ -80,9 +82,11 @@ The engine currently provides **eight** core components:
 - **EntityLink**  
   Stores a reference to another entity using its entity ID.  
   This allows one entity to safely access and interact with the components of another entity.
+  Available in the script as `link`.
 
 - **Camera**  
   Contains all data required to define the camera’s position and orientation in world space.
+  Available in the script as `camera`.
 
 - **Shader**  
   Holds a reference to the shader object used for rendering the entity.
