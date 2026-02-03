@@ -81,7 +81,7 @@ void Engine::run()
 
     input.update(input_state, registry, delta_time, window);
     camera.update(registry);
-    collision.update(registry);
+    collision.update(registry, delta_time);
     physics.update(registry, delta_time);
     transform.update(registry, delta_time);
     render.update(registry, camera_entity);

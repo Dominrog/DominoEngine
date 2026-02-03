@@ -47,7 +47,7 @@ end
 
 ## Systems
 
-The engine currently provides **six** core systems:
+The engine currently provides **seven** core systems:
 
 - **CameraSystem**  
   Updates all `Camera` components and computes the corresponding view and projection matrices.
@@ -64,6 +64,9 @@ The engine currently provides **six** core systems:
 - **TransformSystem**  
   Updates all `Transform` components and propagates spatial changes to dependent systems.
 
+- **PhysicsSystem**
+  Adds calculated forces to an entities force accumulator. Requires the `Physics` component.
+
 - **CollisionSystem**  
   Processes all box colliders in the scene and detects collisions between them.
 
@@ -71,7 +74,7 @@ The engine currently provides **six** core systems:
 
 ## Components
 
-The engine currently provides **eight** core components:
+The engine currently provides **nine** core components:
 
 - **Info**  
   Stores metadata associated with an entity.  
@@ -80,6 +83,9 @@ The engine currently provides **eight** core components:
 - **Transform**  
   Contains the spatial data of an entity, including position, rotation, and scale.  
   Available in the script as `transform`.
+
+- **Physics**
+  Stores the entities physical data such as mass and velocity.
 
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
@@ -120,10 +126,7 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ### high priority
 
-- Refactor transform and collision systems to use velocity/impulse-based physics
-  - add a `PhysicsComponent` holding Data about the objects velocity/mass/etc.
-  - add a `PhysicsSystem` to modify the `TransformComponent` by using its `PhysiscsComponent` data
-  - change collisions by applying impulses instead of positional fixes
+- Add angular transforms after collisions
 
 - replace `keyFromString()` in `LuaBindings.h` with an unordered KeyMap
 
@@ -141,7 +144,7 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ## Issues
 
-- The `CollisionSystem` sometimes registers multiple collisions (should be fixed with the WIP `PhysicsSystem`)
+- The `CollisionSystem` sometimes registers multiple collisions, can be fixed with logic by checking previous state
 
 ## Third-Party
 

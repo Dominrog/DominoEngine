@@ -9,4 +9,5 @@ struct BoxCollider {
 	uint32_t mask = 0xFFFFFFFF;
 	bool trigger = true;
 	bool colliding = false;
+	bool collidable = true;
 };
