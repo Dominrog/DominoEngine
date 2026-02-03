@@ -120,6 +120,11 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ### high priority
 
+- Refactor transform and collision systems to use velocity/impulse-based physics
+  - add a `PhysicsComponent` holding Data about the objects velocity/mass/etc.
+  - add a `PhysicsSystem` to modify the `TransformComponent` by using its `PhysiscsComponent` data
+  - change collisions by applying impulses instead of positional fixes
+
 - replace `keyFromString()` in `LuaBindings.h` with an unordered KeyMap
 
 ### low priority
@@ -133,3 +138,7 @@ mesh_loader.importMesh("path/to/model.glb")
 - gui implementation to create entities and components during runtime in the engine
 
 - improve the `CollisionSystem` by implementing a spatial hash grid
+
+## Issues
+
+- The `CollisionSystem` sometimes registers multiple collisions (should be fixed with the WIP )

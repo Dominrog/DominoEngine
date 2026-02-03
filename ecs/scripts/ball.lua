@@ -1,9 +1,10 @@
 
 function onStart()
-
+  transform.ry = 45
+  transform.rz = 45
 end
 
-local move = 10
+local move = 4
 local wasColliding = false
 
 function onUpdate(dt)

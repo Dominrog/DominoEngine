@@ -3,15 +3,12 @@
 
 int main()
 {
-  
   Engine domino_engine;
   domino_engine.init();
-
 
   //----------------------------------------------------------------------------------------------
 
   ShaderObject object_shader("../shaders/objectShader.vs", "../shaders/objectShader.fs");
-
 
 
   Entity mesh_entity = domino_engine.registry.createEntity();
@@ -30,7 +27,7 @@ int main()
 
   domino_engine.registry.addComponent<Script>(mesh_entity, Script {
     .lua_file = "../ecs/scripts/ball.lua"
-  }); 
+  });
 
   domino_engine.registry.addComponent<BoxCollider>(mesh_entity, BoxCollider{});
 
@@ -63,11 +60,11 @@ int main()
 
   domino_engine.registry.addComponent<EntityLink>(domino_engine.camera_entity, EntityLink {
     .target = mesh_entity
-  }); 
+  });
   */
 
 
-  
+
   Entity left_pong = domino_engine.registry.createEntity();
 
   domino_engine.registry.addComponent<Transform>(left_pong, Transform {
@@ -84,7 +81,7 @@ int main()
 
   domino_engine.registry.addComponent<Script>(left_pong, Script {
     .lua_file = "../ecs/scripts/WallControllerLeft.lua"
-  }); 
+  });
 
   domino_engine.registry.addComponent<BoxCollider>(left_pong, BoxCollider{});
 
@@ -102,7 +99,7 @@ int main()
 
   domino_engine.registry.addComponent<Script>(right_pong, Script {
     .lua_file = "../ecs/scripts/WallControllerRight.lua"
-  }); 
+  });
 
   domino_engine.registry.addComponent<Shader>(right_pong, Shader {
     .shaderObj = &object_shader
