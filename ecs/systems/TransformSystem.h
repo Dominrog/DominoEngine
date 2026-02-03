@@ -6,8 +6,9 @@
 
 #include "registry.h"
 #include "transform.h"
+#include "physics.h"
 
 struct TransformSystem
 {
-	void update(Registry& registry);
+	void update(Registry& registry, float delta_time);
 };

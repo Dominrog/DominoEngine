@@ -20,6 +20,7 @@
 #include "TransformSystem.h"
 #include "RenderSystem.h"
 #include "ScriptSystem.h"
+#include "PhysicsSystem.h"
 #include "camera.h"
 #include "settings.h"
 #include "utils.h"
@@ -31,6 +32,7 @@
 #include "entitylink.h"
 #include "CollisionSystem.h"
 #include "boxcollider.h"
+#include "physics.h"
 
 extern "C" {
 #include "lua.h"
@@ -51,6 +53,7 @@ struct Engine {
   RenderSystem render;
   ScriptSystem script;
   CollisionSystem collision;
+  PhysicsSystem physics;
   MeshLoader mesh_loader;
 
   GLFWwindow* window;

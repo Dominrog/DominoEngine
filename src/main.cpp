@@ -85,6 +85,8 @@ int main()
 
   domino_engine.registry.addComponent<BoxCollider>(left_pong, BoxCollider{});
 
+  domino_engine.registry.addComponent<Physics>(left_pong, Physics{});
+
 
 
   Entity right_pong = domino_engine.registry.createEntity();

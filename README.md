@@ -141,4 +141,8 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ## Issues
 
-- The `CollisionSystem` sometimes registers multiple collisions (should be fixed with the WIP )
+- The `CollisionSystem` sometimes registers multiple collisions (should be fixed with the WIP `PhysicsSystem`)
+
+## Third-Party
+
+- GLFW, GLAD, GLM, Dear ImGui, Lua, tinygltf, stb_image, FastNoiseLite, KHR

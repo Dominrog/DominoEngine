@@ -1,7 +1,17 @@
 #include "TransformSystem.h"
 
-void TransformSystem::update(Registry& registry)
+void TransformSystem::update(Registry& registry, float delta_time)
 {
+	for(auto e : registry.view<Transform, Physics>())
+	{
+		auto& t = registry.get<Transform>(e);
+		auto& p = registry.get<Physics>(e);
+
+		p.velocity = p.invMass * p.forceAccum / delta_time;
+		t.position += p.invMass * p.forceAccum * delta_time;
+		p.forceAccum = glm::vec3(0.0f);
+	}
+
 	for(auto e : registry.view<Transform>())
 	{
 		auto& t = registry.get<Transform>(e);
