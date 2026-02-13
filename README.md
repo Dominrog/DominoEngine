@@ -68,7 +68,7 @@ The engine currently provides **seven** core systems:
   Adds calculated forces to an entities force accumulator. Requires the `Physics` component.
 
 - **CollisionSystem**  
-  Processes all box colliders in the scene and detects collisions between them.
+  Processes all box colliders in the scene and detects collisions between them. It uses a simple AABB broadphase check and if positive then a OBB-SAT check is performed.
 
 ---
 
@@ -144,7 +144,7 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ## Issues
 
-- The `CollisionSystem` sometimes registers multiple collisions, can be fixed with logic by checking previous state
+
 
 ## Third-Party
 

@@ -1,6 +1,6 @@
 
 function onStart()
-
+  transform.rz = 90
 end
 
 

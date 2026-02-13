@@ -97,15 +97,17 @@ void CollisionSystem::update(Registry& registry, float delta_time)
       if ((ca.mask & cb.layer) == 0 || (cb.mask & ca.layer) == 0)
           continue;
 
-      glm::mat3 rotA = glm::mat3_cast(ta.rotation);
-      glm::mat3 rotB = glm::mat3_cast(tb.rotation);
+      glm::mat3 rotA = glm::mat3_cast(ta.rotationQ);
+      glm::mat3 rotB = glm::mat3_cast(tb.rotationQ);
       OBB obbA, obbB;
 
       obbA.center = ta.position;
       obbB.center = tb.position;
 
-      obbA.scale = ta.scale * ca.scale; 
-      obbB.scale = tb.scale * cb.scale;
+      ca.scale = ta.scale;
+      cb.scale = tb.scale;
+      obbA.scale = ca.scale; 
+      obbB.scale = cb.scale;
 
       obbA.axes[0] = glm::normalize(rotA[0]);
       obbA.axes[1] = glm::normalize(rotA[1]);

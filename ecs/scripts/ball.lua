@@ -1,7 +1,7 @@
 
 function onStart()
-  transform.ry = 0
-  transform.rz = 0
+  --transform.ry = 45
+  --transform.rz = 45
 end
 
 local move = 4

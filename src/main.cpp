@@ -32,8 +32,8 @@ int main()
   domino_engine.registry.addComponent<BoxCollider>(mesh_entity, BoxCollider{});
 
   domino_engine.registry.addComponent<Physics>(mesh_entity, Physics{
-    .velocity = glm::vec3(1.0f, 0.0f, 0.0f),
-    .gravity = glm::vec3(0.0f)
+    .velocity = glm::vec3(0.0f, 0.0f, 0.0f),
+    .gravity = glm::vec3(0.0f, 9.81f, 0.0f)
   });
 
 
@@ -41,7 +41,7 @@ int main()
   domino_engine.camera_entity = domino_engine.registry.createEntity();
 
   domino_engine.registry.addComponent<Transform>(domino_engine.camera_entity, Transform {
-    .position = glm::vec3(0.0f, 0.0f, 10.0f),
+    .position = glm::vec3(0.0f, 0.0f, 5.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
     .scale = glm::vec3(1.0f)
   });
@@ -99,7 +99,7 @@ int main()
   Entity right_pong = domino_engine.registry.createEntity();
 
   domino_engine.registry.addComponent<Transform>(right_pong, Transform {
-    .position = glm::vec3(10.0f, 0.0f, -5.0f),
+    .position = glm::vec3(0.0f, -2.0f, -5.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
     .scale = glm::vec3(0.25f, 2.0f, 1.0f)
   });
@@ -117,9 +117,9 @@ int main()
   domino_engine.registry.addComponent<BoxCollider>(right_pong, BoxCollider{});
 
   domino_engine.registry.addComponent<Physics>(right_pong, Physics{
-    .mass = 10.0f,
+    .mass = 0.0f,
     .velocity = glm::vec3(0.0f, 0.0f, 0.0f),
-    .gravity = glm::vec3(0.0f)
+    .gravity = glm::vec3(0.0f),
   });
 
 
