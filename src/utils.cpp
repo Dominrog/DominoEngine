@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "engine.h"
 
 int global_fps = 0;
 
@@ -52,5 +53,11 @@ void countFps()
     global_fps = frameCount;
     frameCount = 0;
     lastTime = currentTime;
+  }
+}
+
+void print_entity_list(Engine* e){
+  for (const auto& [key, value] : e->registry.entities) {
+    std::cout << "Key:[" << key << "], Value:[" << value << "]" << std::endl;
   }
 }

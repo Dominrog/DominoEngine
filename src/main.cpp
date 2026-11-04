@@ -11,34 +11,34 @@ int main()
   ShaderObject object_shader("../shaders/objectShader.vs", "../shaders/objectShader.fs");
 
 
-  Entity mesh_entity = domino_engine.registry.createEntity();
+  Entity ball = domino_engine.registry.createEntity("ball");
 
-  domino_engine.registry.addComponent<Transform>(mesh_entity, Transform {
+  domino_engine.registry.addComponent<Transform>(ball, Transform {
     .position = glm::vec3(0.0f, 1.5f, -5.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
     .scale = glm::vec3(0.25f)
   });
 
-  domino_engine.registry.addComponent<Mesh>(mesh_entity, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
+  domino_engine.registry.addComponent<Mesh>(ball, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
 
-  domino_engine.registry.addComponent<Shader>(mesh_entity, Shader {
+  domino_engine.registry.addComponent<Shader>(ball, Shader {
     .shaderObj = &object_shader
   });
 
-  domino_engine.registry.addComponent<Script>(mesh_entity, Script {
+  domino_engine.registry.addComponent<Script>(ball, Script {
     .lua_file = "../ecs/scripts/ball.lua"
   });
 
-  domino_engine.registry.addComponent<BoxCollider>(mesh_entity, BoxCollider{});
+  domino_engine.registry.addComponent<BoxCollider>(ball, BoxCollider{});
 
-  domino_engine.registry.addComponent<Physics>(mesh_entity, Physics{
+  domino_engine.registry.addComponent<Physics>(ball, Physics{
     .velocity = glm::vec3(0.0f, 0.0f, 0.0f),
     .gravity = glm::vec3(0.0f, 9.81f, 0.0f)
   });
 
 
 
-  domino_engine.camera_entity = domino_engine.registry.createEntity();
+  domino_engine.camera_entity = domino_engine.registry.createEntity("camera");
 
   domino_engine.registry.addComponent<Transform>(domino_engine.camera_entity, Transform {
     .position = glm::vec3(0.0f, 0.0f, 5.0f),
@@ -62,61 +62,30 @@ int main()
   domino_engine.registry.addComponent<Script>(domino_engine.camera_entity, Script {
     .lua_file = "../ecs/scripts/CameraController.lua"
   });
-
-  domino_engine.registry.addComponent<EntityLink>(domino_engine.camera_entity, EntityLink {
-    .target = mesh_entity
-  });
   */
 
 
+  Entity platform = domino_engine.registry.createEntity("platform");
 
-  Entity left_pong = domino_engine.registry.createEntity();
-
-  domino_engine.registry.addComponent<Transform>(left_pong, Transform {
-    .position = glm::vec3(-10.0f, 0.0f, -5.0f),
-    .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
-    .scale = glm::vec3(0.25f, 2.0f, 1.0f)
-  });
-
-  domino_engine.registry.addComponent<Mesh>(left_pong, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
-
-  domino_engine.registry.addComponent<Shader>(left_pong, Shader {
-    .shaderObj = &object_shader
-  });
-
-  domino_engine.registry.addComponent<Script>(left_pong, Script {
-    .lua_file = "../ecs/scripts/WallControllerLeft.lua"
-  });
-
-  domino_engine.registry.addComponent<BoxCollider>(left_pong, BoxCollider{});
-
-  domino_engine.registry.addComponent<Physics>(left_pong, Physics{
-    .gravity = glm::vec3(0.0f)
-  });
-
-
-
-  Entity right_pong = domino_engine.registry.createEntity();
-
-  domino_engine.registry.addComponent<Transform>(right_pong, Transform {
+  domino_engine.registry.addComponent<Transform>(platform, Transform {
     .position = glm::vec3(0.0f, -2.0f, -5.0f),
     .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
     .scale = glm::vec3(0.25f, 2.0f, 1.0f)
   });
 
-  domino_engine.registry.addComponent<Mesh>(right_pong, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
+  domino_engine.registry.addComponent<Mesh>(platform, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
 
-  domino_engine.registry.addComponent<Script>(right_pong, Script {
-    .lua_file = "../ecs/scripts/WallControllerRight.lua"
+  domino_engine.registry.addComponent<Script>(platform, Script {
+    .lua_file = "../ecs/scripts/PlatformController.lua"
   });
 
-  domino_engine.registry.addComponent<Shader>(right_pong, Shader {
+  domino_engine.registry.addComponent<Shader>(platform, Shader {
     .shaderObj = &object_shader
   });
 
-  domino_engine.registry.addComponent<BoxCollider>(right_pong, BoxCollider{});
+  domino_engine.registry.addComponent<BoxCollider>(platform, BoxCollider{});
 
-  domino_engine.registry.addComponent<Physics>(right_pong, Physics{
+  domino_engine.registry.addComponent<Physics>(platform, Physics{
     .mass = 0.0f,
     .velocity = glm::vec3(0.0f, 0.0f, 0.0f),
     .gravity = glm::vec3(0.0f),
@@ -125,6 +94,7 @@ int main()
 
   //----------------------------------------------------------------------------------------------
 
+  print_entity_list(&domino_engine);
 
   domino_engine.run();
   domino_engine.close();

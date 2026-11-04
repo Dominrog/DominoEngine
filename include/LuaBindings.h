@@ -13,7 +13,6 @@ extern "C" {
 #include "transform.h"
 #include "camera.h"
 #include "InputState.h"
-#include "entitylink.h"
 #include "boxcollider.h"
 
 void lua_setRegistry(Registry* registry);
@@ -31,10 +30,9 @@ extern "C" int camera_index(lua_State* L);
 extern "C" int camera_newindex(lua_State* L);
 extern "C" int l_getCamera(lua_State* L);
 
-extern "C" int entitylink_index(lua_State* L);
-extern "C" int entitylink_newindex(lua_State* L);
-extern "C" int l_getEntityLink(lua_State* L);
-
 extern "C" int boxcollider_index(lua_State* L);
 extern "C" int boxcollider_newindex(lua_State* L);
 extern "C" int l_getBoxCollider(lua_State* L);
+
+
+extern "C" int l_getEntity(lua_State* L);

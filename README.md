@@ -130,8 +130,6 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ### low priority
 
-- allow the `EntityLink` to link more than one entity
-
 - add material component allowing to add a color and a texture to the mesh
 
 - a savefile to save scenes
@@ -142,7 +140,7 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ## Issues
 
-
+- physics clipping during collisions
 
 ## Third-Party
 

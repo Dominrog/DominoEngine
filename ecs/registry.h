@@ -15,7 +15,18 @@ private:
 	std::unordered_map<std::type_index, std::unordered_map<Entity, std::shared_ptr<void>>> components;
 
 public:
-	Entity createEntity() { return next_id++; };
+	std::unordered_map<std::string, int> entities;
+
+	Entity createEntity(std::string name = "Entity") { 
+		int id = next_id++;
+		std::string n;
+
+		if (name == "Entity") n = "Entity_" + std::to_string(id);
+		else n = name;
+
+		entities.insert({n, id});
+		return id; 
+	}
 
 	// adds a component to an entity
 	template<typename T>

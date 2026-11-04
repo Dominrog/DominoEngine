@@ -15,10 +15,13 @@ extern int global_fps;
 extern float last_x;
 extern float last_y;
 
+class Engine;
+
 void setInputState(InputState* input);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void countFps();
+void print_entity_list(Engine* e);
 //glm::vec3 getMouseRay(double mouseX, double mouseY, const CameraSystem& camera);
 //glm::vec3 intersectRayPlane(glm::vec3 rayOrigin, glm::vec3 rayDir, float planeY);

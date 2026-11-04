@@ -29,7 +29,6 @@
 #include "shader.h"
 #include "script.h"
 #include "MeshLoader.h"
-#include "entitylink.h"
 #include "CollisionSystem.h"
 #include "boxcollider.h"
 #include "physics.h"

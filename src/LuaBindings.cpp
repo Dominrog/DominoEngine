@@ -211,62 +211,6 @@ extern "C" int l_getCamera(lua_State* L)
 
 
 
-extern "C" int entitylink_index(lua_State* L)
-{
-  EntityLink* link = (EntityLink*)lua_touserdata(L, lua_upvalueindex(1));
-  const char* key = lua_tostring(L, 2);
-
-  if (strcmp(key, "target") == 0) lua_pushnumber(L, link->target);
-  else lua_pushnil(L);
-
-  return 1;
-}
-
-extern "C" int entitylink_newindex(lua_State* L)
-{
-  EntityLink* link = (EntityLink*)lua_touserdata(L, lua_upvalueindex(1));
-  const char* key = lua_tostring(L, 2);
-  float value = (float)lua_tonumber(L, 3);
-
-  if (strcmp(key, "target") == 0) link->target = value;
-
-  return 0;
-}
-
-extern "C" int l_getEntityLink(lua_State* L)
-{
-  Entity e = (Entity)lua_tointeger(L, 1);
-
-  if (!gRegistry)
-    return luaL_error(L, "Registry not set");
-
-  if (!gRegistry->has<EntityLink>(e)) 
-    return 0;
-  
-  EntityLink* link = &gRegistry->get<EntityLink>(e);
-  
-  lua_newtable(L);
-
-  // Metatable 
-  lua_newtable(L);
-
-  // __index
-  lua_pushlightuserdata(L, link);
-  lua_pushcclosure(L, entitylink_index, 1);
-  lua_setfield(L, -2, "__index");
-
-  // __newindex
-  lua_pushlightuserdata(L, link);
-  lua_pushcclosure(L, entitylink_newindex, 1);
-  lua_setfield(L, -2, "__newindex");
-
-  lua_setmetatable(L, -2);
-
-  return 1;
-}
-
-
-
 extern "C" int boxcollider_index(lua_State* L)
 {
   BoxCollider* box = (BoxCollider*)lua_touserdata(L, lua_upvalueindex(1));
@@ -335,5 +279,25 @@ extern "C" int l_getBoxCollider(lua_State* L)
 
   lua_setmetatable(L, -2);
 
+  return 1;
+}
+
+
+
+extern "C" int l_getEntity(lua_State* L)
+{
+  if (!gRegistry)
+    return luaL_error(L, "Registry not set");
+
+  const char* name = luaL_checkstring(L, 1);
+
+  auto it = gRegistry->entities.find(name);
+
+  if (it == gRegistry->entities.end()) {
+    lua_pushnil(L);
+    return 1;
+  }
+
+  lua_pushinteger(L, static_cast<lua_Integer>(it->second));
   return 1;
 }

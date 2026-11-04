@@ -30,13 +30,6 @@ void ScriptSystem::start(Registry& registry)
     lua_call(sc.lua_state, 1, 1);
     lua_setglobal(sc.lua_state, "transform"); 
 
-    lua_register(sc.lua_state, "getEntityLink", l_getEntityLink);
-
-    lua_getglobal(sc.lua_state, "getEntityLink");
-    lua_pushinteger(sc.lua_state, (int)e);
-    lua_call(sc.lua_state, 1, 1);
-    lua_setglobal(sc.lua_state, "link");
-
     lua_register(sc.lua_state, "getBoxCollider", l_getBoxCollider);
 
     lua_getglobal(sc.lua_state, "getBoxCollider");
@@ -61,6 +54,8 @@ void ScriptSystem::start(Registry& registry)
     lua_pushcfunction(sc.lua_state, l_input_mouseDY);
     lua_setfield(sc.lua_state, -2, "mouseDY");
     lua_setglobal(sc.lua_state, "input");
+
+    lua_register(sc.lua_state, "getEntity", l_getEntity);
 
     if (luaL_dofile(sc.lua_state, sc.lua_file.c_str()) != LUA_OK) {
       printf("Lua load error (%s): %s\n", sc.lua_file.c_str(), lua_tostring(sc.lua_state, -1));
