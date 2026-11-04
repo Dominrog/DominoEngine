@@ -3,6 +3,16 @@
 static Registry* gRegistry = nullptr;
 static InputState* gInput = nullptr;
 
+
+std::unordered_map<std::string, int> key_map = {
+  {"W", GLFW_KEY_W},
+  {"A", GLFW_KEY_A},
+  {"S", GLFW_KEY_S},
+  {"D", GLFW_KEY_D},
+  {"Space", GLFW_KEY_SPACE}
+};
+
+
 void lua_setRegistry(Registry* registry)
 {
   gRegistry = registry;
@@ -13,14 +23,11 @@ void lua_setInput(InputState* input)
   gInput = input;
 }
 
+
 static int keyFromString(const char* key)
 {
-  if (strcmp(key, "W") == 0) return GLFW_KEY_W;
-  if (strcmp(key, "A") == 0) return GLFW_KEY_A;
-  if (strcmp(key, "S") == 0) return GLFW_KEY_S;
-  if (strcmp(key, "D") == 0) return GLFW_KEY_D;
-  if (strcmp(key, "Space") == 0) return GLFW_KEY_SPACE;
-  return -1;
+  if (key_map.find(key) == key_map.end()) return -1;
+  else return key_map.find(key)->second;
 }
 
 

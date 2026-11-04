@@ -128,8 +128,6 @@ mesh_loader.importMesh("path/to/model.glb")
 
 - Add angular transforms after collisions
 
-- replace `keyFromString()` in `LuaBindings.h` with an unordered KeyMap
-
 ### low priority
 
 - allow the `EntityLink` to link more than one entity
