@@ -47,6 +47,8 @@ void Engine::init()
   glCullFace(GL_BACK);  
   glfwSwapInterval(0);
 
+  physics.init();
+
 }
 
 void Engine::run()
@@ -55,6 +57,7 @@ void Engine::run()
 
   script.setRegistry(&registry);
   script.setInputState(&input_state);
+  script.setPhysics(&physics.getBodyInterface());
   script.start(registry);
 
   //----------------------------------------------------
@@ -81,7 +84,6 @@ void Engine::run()
 
     input.update(input_state, registry, delta_time, window);
     camera.update(registry);
-    collision.update(registry, delta_time);
     physics.update(registry, delta_time);
     transform.update(registry, delta_time);
     render.update(registry, camera_entity);
@@ -122,5 +124,8 @@ void Engine::close()
   ImGui_ImplGlfw_Shutdown();
   ImGui::DestroyContext();
 
+  lua_setPhysics(nullptr);
+  physics.shutdown(registry);
+  
   glfwTerminate();
 }

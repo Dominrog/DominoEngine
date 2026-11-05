@@ -7,6 +7,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <vector>
+#include <Jolt/Jolt.h>
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
 
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
@@ -29,9 +31,8 @@
 #include "shader.h"
 #include "script.h"
 #include "MeshLoader.h"
-#include "CollisionSystem.h"
-#include "boxcollider.h"
-#include "physics.h"
+#include "collider.h"
+#include "rigidbody.h"
 
 extern "C" {
 #include "lua.h"
@@ -51,7 +52,6 @@ struct Engine {
   TransformSystem transform;
   RenderSystem render;
   ScriptSystem script;
-  CollisionSystem collision;
   PhysicsSystem physics;
   MeshLoader mesh_loader;
 

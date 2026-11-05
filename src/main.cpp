@@ -13,12 +13,6 @@ int main()
 
   Entity ball = domino_engine.registry.createEntity("ball");
 
-  domino_engine.registry.addComponent<Transform>(ball, Transform {
-    .position = glm::vec3(0.0f, 1.5f, -5.0f),
-    .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
-    .scale = glm::vec3(0.25f)
-  });
-
   domino_engine.registry.addComponent<Mesh>(ball, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
 
   domino_engine.registry.addComponent<Shader>(ball, Shader {
@@ -29,12 +23,22 @@ int main()
     .lua_file = "../ecs/scripts/ball.lua"
   });
 
-  domino_engine.registry.addComponent<BoxCollider>(ball, BoxCollider{});
+  Transform ballTransform;
+  ballTransform.position = glm::vec3(0.0f, 1.5f, -5.0f);
+  ballTransform.scale = glm::vec3(0.25f, 0.25f, 0.25f);
 
-  domino_engine.registry.addComponent<Physics>(ball, Physics{
-    .velocity = glm::vec3(0.0f, 0.0f, 0.0f),
-    .gravity = glm::vec3(0.0f, 9.81f, 0.0f)
-  });
+  Collider ballCollider;
+  ballCollider.shape =
+      new JPH::BoxShape(JPH::Vec3(0.25f, 0.25f, 0.25f));
+
+  RigidBody ballBody;
+  ballBody.motionType = JPH::EMotionType::Dynamic; // Dynamic reagiert auf gravity
+
+  domino_engine.registry.addComponent<Transform>(ball, ballTransform);
+  domino_engine.registry.addComponent<Collider>(ball, ballCollider);
+  domino_engine.registry.addComponent<RigidBody>(ball, ballBody);
+
+  domino_engine.physics.createBody(domino_engine.registry, ball);
 
 
 
@@ -58,20 +62,8 @@ int main()
     .zoom = 45.0f
   });
 
-  /*
-  domino_engine.registry.addComponent<Script>(domino_engine.camera_entity, Script {
-    .lua_file = "../ecs/scripts/CameraController.lua"
-  });
-  */
-
 
   Entity platform = domino_engine.registry.createEntity("platform");
-
-  domino_engine.registry.addComponent<Transform>(platform, Transform {
-    .position = glm::vec3(0.0f, -2.0f, -5.0f),
-    .rotation = glm::vec3(0.0f, 0.0f, 0.0f),
-    .scale = glm::vec3(0.25f, 2.0f, 1.0f)
-  });
 
   domino_engine.registry.addComponent<Mesh>(platform, domino_engine.mesh_loader.importMesh("../resources/Cube.glb"));
 
@@ -83,14 +75,22 @@ int main()
     .shaderObj = &object_shader
   });
 
-  domino_engine.registry.addComponent<BoxCollider>(platform, BoxCollider{});
+  Transform platformTransform;
+  platformTransform.position = glm::vec3(0.0f, -2.0f, -5.0f);
+  platformTransform.scale = glm::vec3(0.25f, 5.0f, 1.0f);
 
-  domino_engine.registry.addComponent<Physics>(platform, Physics{
-    .mass = 0.0f,
-    .velocity = glm::vec3(0.0f, 0.0f, 0.0f),
-    .gravity = glm::vec3(0.0f),
-  });
+  Collider platformCollider;
+  platformCollider.shape =
+      new JPH::BoxShape(JPH::Vec3(0.25f, 5.0f, 1.0f));
 
+  RigidBody platformBody;
+  platformBody.motionType = JPH::EMotionType::Kinematic;
+
+  domino_engine.registry.addComponent<Transform>(platform, platformTransform);
+  domino_engine.registry.addComponent<Collider>(platform, platformCollider);
+  domino_engine.registry.addComponent<RigidBody>(platform, platformBody);
+
+  domino_engine.physics.createBody(domino_engine.registry, platform);
 
   //----------------------------------------------------------------------------------------------
 

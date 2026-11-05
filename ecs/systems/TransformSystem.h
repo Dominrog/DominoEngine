@@ -7,7 +7,6 @@
 
 #include "registry.h"
 #include "transform.h"
-#include "physics.h"
 
 struct TransformSystem
 {

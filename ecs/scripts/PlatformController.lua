@@ -1,4 +1,3 @@
-
 function onStart()
   transform.rz = 90
 end
@@ -6,19 +5,25 @@ end
 
 function onUpdate(dt)
 
-  local entity = getEntity("camera")
-  local entity_transform = getTransform(entity)
+  local vx = 0
+  local vy = 0
 
   if input.isDown("A") then
-    entity_transform.z = entity_transform.z + 10 * dt
+    vx = vx - 3
+  end
+
+  if input.isDown("D") then
+    vx = vx + 3
   end
 
   if input.isDown("S") then
-    transform.y = transform.y - 3 * dt
+    vy = vy - 3
   end
 
   if input.isDown("W") then
-    transform.y = transform.y + 3 * dt
+    vy = vy + 3
   end
+
+  setVelocity(self, vx, vy, 0)
 
 end

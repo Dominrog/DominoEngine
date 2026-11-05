@@ -10,6 +10,11 @@ void ScriptSystem::setInputState(InputState* input)
   lua_setInput(input);
 }
 
+void ScriptSystem::setPhysics(JPH::BodyInterface* bodies)
+{
+  lua_setPhysics(bodies);
+}
+
 void ScriptSystem::start(Registry& registry)
 {
   for (auto e : registry.view<Script>())
@@ -30,13 +35,6 @@ void ScriptSystem::start(Registry& registry)
     lua_call(sc.lua_state, 1, 1);
     lua_setglobal(sc.lua_state, "transform"); 
 
-    lua_register(sc.lua_state, "getBoxCollider", l_getBoxCollider);
-
-    lua_getglobal(sc.lua_state, "getBoxCollider");
-    lua_pushinteger(sc.lua_state, (int)e);
-    lua_call(sc.lua_state, 1, 1);
-    lua_setglobal(sc.lua_state, "box");
-
     lua_register(sc.lua_state, "getCamera", l_getCamera);
 
     lua_getglobal(sc.lua_state, "getCamera");
@@ -56,6 +54,11 @@ void ScriptSystem::start(Registry& registry)
     lua_setglobal(sc.lua_state, "input");
 
     lua_register(sc.lua_state, "getEntity", l_getEntity);
+
+    lua_register(sc.lua_state, "setVelocity", l_setVelocity);
+
+    lua_pushinteger(sc.lua_state, (lua_Integer)e);
+    lua_setglobal(sc.lua_state, "self");
 
     if (luaL_dofile(sc.lua_state, sc.lua_file.c_str()) != LUA_OK) {
       printf("Lua load error (%s): %s\n", sc.lua_file.c_str(), lua_tostring(sc.lua_state, -1));

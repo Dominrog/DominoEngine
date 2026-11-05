@@ -1,8 +1,8 @@
 # **Domino Engine**
 
-The engine is based on an **Entity–Component–System (ECS)** architecture.
+The engine architecture is based on an **Entity–Component–System**.
 
-Entities are represented by 32-bit unsigned integers (`uint32_t`) and serve solely as unique identifiers.  
+Entities are represented by 32-bit unsigned integers and serve solely as unique identifiers.  
 They do not store data themselves, but are associated with one or more components.
 
 Components are plain data containers and are managed by the **registry**, which is also responsible for creating and assigning entity IDs.  
@@ -23,12 +23,12 @@ Scripts provide the following callback methods:
 - `onUpdate(dt)` - called every frame  
   (`dt` is the delta time, i.e. the time elapsed since the previous frame)
 
-Through scripts, component data of the owning entity can be read and modified.
-Additionally, by using **EntityLink** components, you can access the components of other entities.  
-For example, you can get the transform of a linked entity using:
+Through scripts, component data can be read and modified.
+You can either modify component data of the script owner or reference a different entity.
+For example, using:
 
 ```lua
-local targetTransform = getTransform(link.target)
+local targetTransform = getTransform(target)
 ```
 
 Scripts have access to the InputSystem via lua bindings. The mouse position is available through 
@@ -47,7 +47,7 @@ end
 
 ## Systems
 
-The engine currently provides **seven** core systems:
+The engines core systems:
 
 - **CameraSystem**  
   Updates all `Camera` components and computes the corresponding view and projection matrices.
@@ -65,16 +65,13 @@ The engine currently provides **seven** core systems:
   Updates all `Transform` components and propagates spatial changes to dependent systems.
 
 - **PhysicsSystem**
-  Adds calculated forces to an entities force accumulator. Requires the `Physics` component.
-
-- **CollisionSystem**  
-  Processes all box colliders in the scene and detects collisions between them. It uses a simple AABB broadphase check and if positive then a OBB-SAT check is performed.
+  Uses Jolt for physics.
 
 ---
 
 ## Components
 
-The engine currently provides **nine** core components:
+The engines core components:
 
 - **Info**  
   Stores metadata associated with an entity.  
@@ -84,23 +81,14 @@ The engine currently provides **nine** core components:
   Contains the spatial data of an entity, including position, rotation, and scale.  
   Available in the script as `transform`.
 
-- **Physics**
-  Stores the entities physical data such as mass and velocity.
-
 - **Mesh**  
   Stores all mesh-related data, including VAO, VBO, and EBO handles, as well as the associated vertex and index data.
 
-- **BoxCollider**   
-  Stores data for a box-shaped collider, including its full size, local offset, collision layer and mask, and whether the collider acts as a trigger.   
-  Available in the script as `box`.
+- **Collider**   
+  Stores Jolt collider data.
 
 - **Script**  
   Stores the file path to the associated Lua script.
-
-- **EntityLink**  
-  Stores a reference to another entity using its entity ID.  
-  This allows one entity to safely access and interact with the components of another entity.   
-  Available in the script as `link`.
 
 - **Camera**  
   Contains all data required to define the camera’s position and orientation in world space.    
@@ -126,7 +114,6 @@ mesh_loader.importMesh("path/to/model.glb")
 
 ### high priority
 
-- Add angular transforms after collisions
 
 ### low priority
 
@@ -136,12 +123,9 @@ mesh_loader.importMesh("path/to/model.glb")
 
 - gui implementation to create entities and components during runtime in the engine
 
-- improve the `CollisionSystem` by implementing a spatial hash grid
-
 ## Issues
 
-- physics clipping during collisions
 
 ## Third-Party
 
-- GLFW, GLAD, GLM, Dear ImGui, Lua, tinygltf, stb_image, FastNoiseLite, KHR
+- GLFW, GLAD, GLM, Dear ImGui, Lua, tinygltf, stb_image, FastNoiseLite, KHR, JoltPhysics
